@@ -4,6 +4,7 @@ import(
 	"github.com/chewxy/gogogadget"
 	"flag"
 	"strconv"
+	"fmt"
 )
 var endian = flag.String("e", "", "Endianness: b or s")
 var t = flag.String("t", "", "Type: all basic numeric Go types (int, byte, uint, float, etc)")
@@ -19,32 +20,66 @@ func main() {
 	}
 
 	var v interface{}
+	var tmp interface{}
+	var err error
 
 	switch *t {
 	case "int":
-		v = strconv.ParseInt(*t, 10, 0)
+		tmp, err = strconv.ParseInt(*i, 10, 0)
+		v = tmp
 	case "int8":
-		v = int8(strconv.ParseInt(*t, 10, 0))
+		tmp, err = strconv.ParseInt(*i, 10, 8)
+		tmpInt, _ := tmp.(int64)
+		v = int8(tmpInt)
 	case "int16":
-		v = int16(strconv.ParseInt(*t, 10, 0))
+		tmp, err = strconv.ParseInt(*i, 10, 16)
+		tmpInt, _ := tmp.(int64)
+		v = int16(tmpInt)
 	case "int32":
-		v = int32(strconv.ParseInt(*t, 10, 0))
+		tmp, err = strconv.ParseInt(*i, 10, 32)
+		tmpInt, _ := tmp.(int64)
+		v = int32(tmpInt)
 	case "rune":
-		v = rune(strconv.ParseInt(*t, 10, 0))
+		tmp, err = strconv.ParseInt(*i, 10, 32)
+		tmpInt, _ := tmp.(int64)
+		v = rune(tmpInt)
 	case "int64":
-		v = int64(strconv.ParseInt(*t, 10, 0))
+		tmp, err = strconv.ParseInt(*i, 10, 64)
+		tmpInt, _ := tmp.(int64)
+		v = int64(tmpInt)
 	case "uint":
-		v = strconv.ParseUint(*t, 10, 0)
+		tmp, err = strconv.ParseUint(*i, 10, 0)
+		v = tmp
 	case "uint8":
-		v = uint8(strconv.ParseUint(*t, 10, 0))
+		tmp, err = strconv.ParseUint(*i, 10, 8)
+		tmpUint, _ := tmp.(uint64)
+		v = uint8(tmpUint)
 	case "byte":
-		v = byte(strconv.ParseUint(*t, 10, 0))
+		tmp, err = strconv.ParseUint(*i, 10, 8)
+		tmpUint, _ := tmp.(uint64)
+		v = byte(tmpUint)
 	case "uint16":
-		v = uint16(strconv.ParseUint(*t, 10, 0))
+		tmp, err = strconv.ParseUint(*i, 10, 16)
+		tmpUint, _ := tmp.(uint64)
+		v = uint16(tmpUint)
 	case "uint32":
-		v = uint32(strconv.ParseUint(*t, 10, 0))
+		tmp, err = strconv.ParseUint(*i, 10, 32)
+		tmpUint, _ := tmp.(uint64)
+		v = uint32(tmpUint)
 	case "uint64":
-		v = uint64(strconv.ParseUint(*t, 10, 0))
-
+		tmp, err = strconv.ParseUint(*i, 10, 64)
+		tmpUint, _ := tmp.(uint64)
+		v = uint64(tmpUint)
+	case "float32":
+		tmp, err = strconv.ParseFloat(*i, 32)
+		tmpFloat, _ := tmp.(float64)
+		v = float32(tmpFloat)
+	case "float64":
+		tmp, err = strconv.ParseFloat(*i, 64)
+		v = tmp
 	}
+	if err != nil {
+		panic(fmt.Sprintf("Error: %s\n", err))
+	}
+	fmt.Println(*i + "(" + *t + "): " + gogogadget.Representation(v))
 }

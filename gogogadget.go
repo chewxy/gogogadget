@@ -8,10 +8,12 @@ import (
 	"runtime"
 )
 
+// BigEndian is used because I've been taught BigEndian all along and cannot really quickly parse LittleEndian byte ordering
+var ByteOrdering binary.ByteOrder = binary.BigEndian
+var NativeBitCount int
+
 func init() {
-	// BigEndian is used because I've been taught BigEndian all along and cannot really quickly parse LittleEndian byte ordering
-	var ByteOrdering binary.ByteOrder = binary.BigEndian
-	var NativeBitCount int
+	
 	if runtime.GOARCH == "amd64" {
 		NativeBitCount = 64
 	}
@@ -25,7 +27,7 @@ func Representation(x interface{}) string {
 	switch x.(type) {
 	case int:
 		tmp, _ := x.(int)
-		switch nativeBitCount {
+		switch NativeBitCount {
 		case 64:
 			y = int64(tmp)
 		case 32:
@@ -33,7 +35,7 @@ func Representation(x interface{}) string {
 		}
 	case uint:
 		tmp, _ := x.(uint)
-		switch nativeBitCount {
+		switch NativeBitCount {
 		case 64:
 			y = uint64(tmp)
 		case 32:
@@ -57,5 +59,5 @@ func Representation(x interface{}) string {
 		}
 		stringBuffer += (prepend + binaryRepresentation + " ")
 	}
-	fmt.Println(newBuffer)
+	return stringBuffer
 }
