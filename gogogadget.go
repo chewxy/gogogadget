@@ -13,14 +13,18 @@ var ByteOrdering binary.ByteOrder = binary.BigEndian
 var NativeBitCount int
 
 func init() {
-	
-	if runtime.GOARCH == "amd64" {
+	switch runtime.GOARCH {
+	case "amd64":
 		NativeBitCount = 64
+	case "386":
+		NativeBitCount = 32
+	case "arm":
+		NativeBitCount = 32 // I think?
 	}
-
 }
 
-func Representation(x interface{}) string {
+// BinaryRepresentation returns the binary representation as a string. 1234 in 32 bits would return 00000000 00000000 00000100 11010010
+func BinaryRepresentation(x interface{}) string {
 	buf := new(bytes.Buffer)
 
 	var y interface{}

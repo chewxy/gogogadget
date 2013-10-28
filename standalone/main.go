@@ -81,5 +81,5 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("Error: %s\n", err))
 	}
-	fmt.Println(*i + "(" + *t + "): " + gogogadget.Representation(v))
+	fmt.Println(*i + "(" + *t + "): " + gogogadget.BinaryRepresentation(v))
 }
