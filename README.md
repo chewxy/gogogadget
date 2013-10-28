@@ -40,3 +40,6 @@ However, you can change the endianness yourself. Simply set `gogogadget.ByteOrde
 #Why?#
 
 Why was this package written? In bid to practice some bitwise math, I needed to visualize what I was doing, and occasionally even manually do it on pencil and paper. In this author's opinion, this is also useful for other forms of learning. More inspection methods will be added for even more usefulness in the future.
+
+#LICENCE#
+MIT Licenced. Fork away!
