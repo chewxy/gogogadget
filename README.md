@@ -43,3 +43,6 @@ Why was this package written? In bid to practice some bitwise math, I needed to 
 
 #LICENCE#
 MIT Licenced. Fork away!
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chewxy/gogogadget/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
